@@ -55,3 +55,6 @@ include/darknet/
 uselib
 uselib_track
 darknet
+
+# Custom Added
+build/
