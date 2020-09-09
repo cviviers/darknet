@@ -169,7 +169,9 @@ matrix load_image_augment_paths(char **paths, int n, int use_flip, int min, int 
         image im;
         const int img_index = (contrastive) ? (i / 2) : i;
         if(dontuse_opencv) im = load_image_stb_resize(paths[img_index], 0, 0, 3);
-        else im = load_image_color(paths[img_index], 0, 0);
+        //else im = load_image_color(paths[img_index], 0, 0);
+        //else im = load_image_greyscale(paths[img_index], 0, 0);
+        else im = load_image(paths[img_index], 0, 0, 1);
 
         image crop = random_augment_image(im, angle, aspect, min, max, size);
         int flip = use_flip ? random_gen() % 2 : 0;
@@ -1250,7 +1252,7 @@ data load_data_detection(int n, char **paths, int m, int w, int h, int c, int bo
 
             image ai = image_data_augmentation(src, w, h, pleft, ptop, swidth, sheight, flip, dhue, dsat, dexp,
                 gaussian_noise, blur, boxes, truth_size, truth);
-
+            
             if (use_mixup == 0) {
                 d.X.vals[i] = ai.data;
                 memcpy(d.y.vals[i], truth, truth_size * boxes * sizeof(float));
@@ -1965,7 +1967,7 @@ data load_data_augment(char **paths, int n, int m, char **labels, int k, tree *h
         }
     }
 #endif  // OPENCV
-
+    
     if (show_imgs) {
         int i, j;
         for (i = 0; i < d.X.rows; ++i) {
@@ -1974,7 +1976,6 @@ data load_data_augment(char **paths, int n, int m, char **labels, int k, tree *h
             char buff[1000];
             sprintf(buff, "aug_%d_%s_%d", i, basecfg((char*)paths[i]), random_gen());
             save_image(im, buff);
-
             char buff_string[1000];
             sprintf(buff_string, "\n Classes: ");
             for (j = 0; j < d.y.cols; ++j) {

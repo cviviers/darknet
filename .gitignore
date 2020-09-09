@@ -57,4 +57,4 @@ uselib_track
 darknet
 
 # Custom Added
-build/
+build/darknet

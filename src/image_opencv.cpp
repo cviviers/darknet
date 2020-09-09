@@ -41,6 +41,7 @@
 using std::cerr;
 using std::endl;
 
+
 #ifdef DEBUG
 #define OCV_D "d"
 #else
@@ -76,6 +77,9 @@ using std::endl;
 #ifndef CV_AA
 #define CV_AA cv::LINE_AA
 #endif
+
+// Custom
+using namespace std;
 
 extern "C" {
 
@@ -344,6 +348,12 @@ extern "C" image mat_to_image(cv::Mat mat)
             }
         }
     }
+
+    // string windowName = "The Image "+w+h+c; //Name of the window
+    // cv::namedWindow(windowName); // Create a window
+    // cv::imshow(windowName, mat); // Show our image inside the created window.
+    // cv::waitKey(0); // Wait for any keystroke in the window
+
     return im;
 }
 
@@ -1307,6 +1317,9 @@ extern "C" image image_data_augmentation(mat_cv* mat, int w, int h,
         //char txt[100];
         //sprintf(txt, "blur = %d", blur);
         //cv::putText(sized, txt, cv::Point(100, 100), cv::FONT_HERSHEY_COMPLEX_SMALL, 1.7, CV_RGB(255, 0, 0), 1, CV_AA);
+
+        
+        
 
         // Mat -> image
         out = mat_to_image(sized);

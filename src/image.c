@@ -1181,6 +1181,22 @@ image grayscale_image(image im)
     return gray;
 }
 
+image grayscale_image_custom(image im)
+{
+    assert(im.c == 3);
+    int i, j, k;
+    image gray = make_image(im.w, im.h, 1);
+    float scale[] = {0.587, 0.299, 0.114};
+    for(k = 0; k < im.c; ++k){
+        for(j = 0; j < im.h; ++j){
+            for(i = 0; i < im.w; ++i){
+                gray.data[i+im.w*j] += scale[k]*get_pixel(im, i, j, k);
+            }
+        }
+    }
+    return gray;
+}
+
 image threshold_image(image im, float thresh)
 {
     int i;
@@ -1550,10 +1566,16 @@ image load_image(char *filename, int w, int h, int c)
     return out;
 }
 
+image load_image_greyscale(char *filename, int w, int h)
+{
+    return load_image(filename, w, h, 1);
+}
+
 image load_image_color(char *filename, int w, int h)
 {
     return load_image(filename, w, h, 3);
 }
+
 
 image get_image_layer(image m, int l)
 {

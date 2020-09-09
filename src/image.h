@@ -61,6 +61,7 @@ void composite_3d(char *f1, char *f2, char *out, int delta);
 int best_3d_shift_r(image a, image b, int min, int max);
 
 image grayscale_image(image im);
+image grayscale_image_custom(image im);
 image threshold_image(image im, float thresh);
 
 image collapse_image_layers(image source, int border);
@@ -87,6 +88,7 @@ void copy_image_inplace(image src, image dst);
 image load_image(char *filename, int w, int h, int c);
 image load_image_stb_resize(char *filename, int w, int h, int c);
 //LIB_API image load_image_color(char *filename, int w, int h);
+//LIB_API image load_image_greyscale(char *filename, int w, int h);
 image **load_alphabet();
 
 //float get_pixel(image m, int x, int y, int c);
